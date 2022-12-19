@@ -35,8 +35,8 @@ async function request<T>(
     );
   }
   const dateExpires = new Date(tokenExpiresAt);
-  // subtract five seconds for clock drift etc
-  if ((Date.now() - 5000) > dateExpires.valueOf()) {
+  // add five seconds for clock drift etc
+  if ((Date.now() + 5000) > dateExpires.valueOf()) {
     await refreshAndSaveToken(refreshToken);
   }
   log.debug("Making request to Strava", {
@@ -66,6 +66,22 @@ async function request<T>(
     options,
   );
   if (!response.ok) {
+    let json: { errors?: { field?: string; code?: string }[] } = {};
+    try {
+      json = await response.json();
+    } catch (error) {
+      log.debug("Error trying to decode JSON from response", { error });
+    }
+    if (
+      response.status === 401 && response.statusText === "Unauthorized" &&
+      json.errors?.some((error) =>
+        error.field === "access_token" && error.code === "invalid"
+      )
+    ) {
+      log.debug("Received invalid token response. Refreshing access token.");
+      await refreshAndSaveToken(refreshToken);
+      return request<T>(method, path, { params, body });
+    }
     throw new Error(
       `${response.status} ${response.statusText}: ${await response.text()}`,
     );
