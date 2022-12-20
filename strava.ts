@@ -109,6 +109,6 @@ export function getActivitiesSince(since: Date | string): Promise<Activity[]> {
 export function updateActivity(
   id: number,
   body: Record<string, unknown>,
-): Promise<void> {
-  return put<void>(`activities/${id}`, { body });
+): Promise<Activity> {
+  return put<Activity>(`activities/${id}`, { body });
 }
