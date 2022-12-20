@@ -57,7 +57,7 @@ async function setBikeToTrainerForVirtualRides() {
       );
       if (response.gear_id === trainerBikeId) {
         log.info(
-          `Successfuly set bike to trainer bike for activity ${activity.name}`,
+          `Successfuly set bike to trainer bike for activity "${activity.name}"`,
         );
       } else {
         log.warning("Gear id on activity doesn't match trainer bike id", {
