@@ -70,7 +70,7 @@ async function request<T>(
     try {
       json = await response.json();
     } catch (error) {
-      log.debug("Error trying to decode JSON from response", { error });
+      log.error("Error trying to decode JSON from response", { error });
     }
     if (
       response.status === 401 && response.statusText === "Unauthorized" &&
