@@ -51,10 +51,20 @@ async function setBikeToTrainerForVirtualRides() {
       log.info(
         `"${activity.name}" is a virtual ride, but bike is not trainer bike. Setting to trainer bike.`,
       );
-      await strava.updateActivity(activity.id, { gear_id: trainerBikeId });
-      log.info(
-        `Successfuly set bike to trainer bike for activity ${activity.name}`,
+      const response: strava.Activity = await strava.updateActivity(
+        activity.id,
+        { gear_id: trainerBikeId },
       );
+      if (response.gear_id === trainerBikeId) {
+        log.info(
+          `Successfuly set bike to trainer bike for activity ${activity.name}`,
+        );
+      } else {
+        log.warning("Gear id on activity doesn't match trainer bike id", {
+          activity,
+          trainerBikeId,
+        });
+      }
     }
   }
 }
