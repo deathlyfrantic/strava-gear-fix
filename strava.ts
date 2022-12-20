@@ -112,7 +112,3 @@ export function updateActivity(
 ): Promise<void> {
   return put<void>(`activities/${id}`, { body });
 }
-
-export async function getBike(id: string) {
-  log.info(`bike ${id}`, await get<Record<string, unknown>>(`gear/${id}`));
-}
