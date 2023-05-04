@@ -1,0 +1,27 @@
+[package]
+name = "strava-gear-fix"
+version = "0.1.0"
+edition = "2021"
+default-run = "strava-gear-fix"
+
+[[bin]]
+name = "auth"
+path = "src/auth.rs"
+
+[[bin]]
+name = "strava-gear-fix"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = { version = "0.4.24", features = ["serde", "clock"] }
+hyper = { version = "0.14.26", features = ["server"] }
+lazy_static = "1.4.0"
+log = "0.4.17"
+reqwest = { version = "0.11.16", features = ["json"] }
+serde = { version = "1.0.160", features = ["derive"] }
+serde_json = "1.0.96"
+simple_logger = "4.1.0"
+tokio = { version = "1.28.0", features = ["full"] }
+url = "2.3.1"
