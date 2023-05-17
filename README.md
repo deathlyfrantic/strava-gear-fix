@@ -1,3 +1,9 @@
+# Deprecated
+
+Strava now supports [per-activity-type default
+gear](https://communityhub.strava.com/t5/what-s-new/new-set-default-gear-by-sport/m-p/9728)
+so this program is no longer necessary.
+
 ## strava-gear-fix
 
 Strava only has the concept of a single default piece of gear that applies to
